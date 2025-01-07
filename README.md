@@ -1,2 +1,2 @@
 # Joker Poker
-Recreation of Balatro, with graphics based off of development videos shared by LocalThunk.
+A recreation of Balatro, with graphics heavily inspired by development videos shared by LocalThunk
