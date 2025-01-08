@@ -12,6 +12,11 @@ public class Game
 
     JFrame gamewindow = new JFrame("Joker Poker");
     JPanel gamebg = new JPanel();
+    JPanel actionpanel = new JPanel();
+    JButton discardbtn = new JButton("Discard");
+    JButton ranksortbtn = new JButton("Sort (Rank)");
+    JButton suitsortbtn = new JButton("Sort (Suit)");
+    JButton playbutton = new JButton("Play Hand");
     
     private class Card
     {
@@ -127,16 +132,42 @@ public class Game
     public void buildGUI()
     {
 
+        // Window settings
         gamewindow.setSize(windowWidth, windowHeight);
         gamewindow.setLocationRelativeTo(null);
-        gamewindow.setResizable(true);
+        gamewindow.setResizable(false);
         gamewindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gamewindow.setIconImage(new ImageIcon("icons/windowicon.jpg").getImage());
         
+        // Window background
         gamebg.setLayout(new BorderLayout());
         gamebg.setBackground(new Color(53,101,77));
-        gamewindow.add(gamebg);
+
+        // Action Panel settings
+        actionpanel.setOpaque(false);
         
+        // Button settings
+        discardbtn.setFocusable(false);
+        discardbtn.setOpaque(true);
+        actionpanel.add(discardbtn);
+
+        ranksortbtn.setFocusable(false);
+        ranksortbtn.setOpaque(true);
+        actionpanel.add(ranksortbtn);
+
+        suitsortbtn.setFocusable(false);
+        suitsortbtn.setOpaque(true);
+        actionpanel.add(suitsortbtn);
+
+        playbutton.setFocusable(false);
+        playbutton.setOpaque(true);
+        actionpanel.add(playbutton);
+
+        // Window Creation
+        
+        gamewindow.setContentPane(gamebg);
+        //gamewindow.add(gamebg);
+        gamewindow.add(actionpanel, BorderLayout.SOUTH);
         gamewindow.setVisible(true);
 
     }
