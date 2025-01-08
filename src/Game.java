@@ -6,12 +6,27 @@ import javax.swing.*;
 
 public class Game
 {
-    
+    int windowWidth = 600;
+    int windowHeight = 600;
+    int cardwidth = 50;
+    int cardheight = 75;
+
     ArrayList<Card> deck;
     ArrayList<Card> hand;
 
+
     JFrame gamewindow = new JFrame("Joker Poker");
-    JPanel gamebg = new JPanel();
+    
+    JPanel gamebg = new JPanel()
+    {
+        @Override public void paintComponent(Graphics g)
+        {
+            super.paintComponent(g);
+            Image cardimg = new ImageIcon(getClass().getResource("./cards/errcard.PNG")).getImage();
+            g.drawImage(cardimg,20,20,cardwidth,cardheight,null);
+        }
+    };
+
     JPanel actionpanel = new JPanel();
     JButton discardbtn = new JButton("Discard");
     JButton ranksortbtn = new JButton("Sort (Rank)");
@@ -45,10 +60,6 @@ public class Game
             }
         }
     }
-
-    int windowWidth = 600;
-    int windowHeight = 600;
-
 
     Game()
     {
@@ -164,9 +175,7 @@ public class Game
         actionpanel.add(playbutton);
 
         // Window Creation
-        
         gamewindow.setContentPane(gamebg);
-        //gamewindow.add(gamebg);
         gamewindow.add(actionpanel, BorderLayout.SOUTH);
         gamewindow.setVisible(true);
 
