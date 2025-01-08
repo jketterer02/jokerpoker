@@ -9,6 +9,9 @@ public class Game
     
     ArrayList<Card> deck;
     ArrayList<Card> hand;
+
+    JFrame gamewindow = new JFrame("Joker Poker");
+    JPanel gamebg = new JPanel();
     
     private class Card
     {
@@ -40,8 +43,6 @@ public class Game
 
     int windowWidth = 600;
     int windowHeight = 600;
-
-    JFrame window = new JFrame("Joker Poker");
 
 
     Game()
@@ -125,11 +126,18 @@ public class Game
 
     public void buildGUI()
     {
-        window.setVisible(true);
-        window.setSize(windowWidth, windowHeight);
-        window.setLocationRelativeTo(null);
-        window.setResizable(true);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setIconImage(new ImageIcon("icons/windowicon.jpg").getImage());
+
+        gamewindow.setSize(windowWidth, windowHeight);
+        gamewindow.setLocationRelativeTo(null);
+        gamewindow.setResizable(true);
+        gamewindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gamewindow.setIconImage(new ImageIcon("icons/windowicon.jpg").getImage());
+        
+        gamebg.setLayout(new BorderLayout());
+        gamebg.setBackground(new Color(53,101,77));
+        gamewindow.add(gamebg);
+        
+        gamewindow.setVisible(true);
+
     }
 }
