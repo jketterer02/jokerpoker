@@ -148,7 +148,7 @@ public class Game
         gamewindow.setLocationRelativeTo(null);
         gamewindow.setResizable(false);
         gamewindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gamewindow.setIconImage(new ImageIcon("icons/windowicon.jpg").getImage());
+        gamewindow.setIconImage(new ImageIcon("icons/windowicon.png").getImage());
         
         // Window background
         gamebg.setLayout(new BorderLayout());
