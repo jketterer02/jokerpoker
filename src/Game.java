@@ -204,19 +204,22 @@ public class Game
         actionpanel.add(playbutton);
         actionpanel.setBounds(150, 685, 500, 75);
 
-        actionpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        // Testing code for outline
+        //actionpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         gamebg.add(actionpanel);
 
     }
 
     public void buildHandPanel()
     {
-        handPanel = new JPanel();
+        // Unnecessary?
+        //handPanel = new JPanel();
         handPanel.setOpaque(false);
         handPanel.setLayout(new FlowLayout(FlowLayout.CENTER,handcram,0));
         handPanel.setBounds(7, 500, 780, cardheight+20);
         handPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        //Investiage later for making the handpanel look nicer
+        //Investiage later for making the handpanel look nicer by waking the cards centered vertically
+        
         //handPanel.setBorder(BorderFactory.createRaisedBevelBorder());
         gamebg.add(handPanel);
     }
