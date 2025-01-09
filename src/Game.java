@@ -25,7 +25,7 @@ public class Game
     JPanel actionpanel = new JPanel();
 
     ArrayList<JButton> buttonlist;
-    //There's interesting tech here with intializing all these buttons into an arraylist and iterating inside buildActionPanel? 
+    //There's interesting tech here with intializing all these buttons into an arraylist and iterating inside buildActionPanel?
     JButton discardbtn = new JButton("Discard");
     JButton ranksortbtn = new JButton("Sort (Rank)");
     JButton suitsortbtn = new JButton("Sort (Suit)");
