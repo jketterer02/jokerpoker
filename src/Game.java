@@ -213,7 +213,7 @@ public class Game
     public void buildHandPanel()
     {
         // Unnecessary?
-        //handPanel = new JPanel();
+        handPanel = new JPanel();
         handPanel.setOpaque(false);
         handPanel.setLayout(new FlowLayout(FlowLayout.CENTER,handcram,0));
         handPanel.setBounds(7, 500, 780, cardheight+20);
