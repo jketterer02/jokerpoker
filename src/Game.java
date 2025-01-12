@@ -64,23 +64,13 @@ public class Game
 
         public String getImagePath()
         {
-            //String imagePath = "./cards/" + toString().replaceAll("\\s", "").toLowerCase() + ".png";
-            
-            //return "./cards/" + toString().replaceAll("\\s", "").toLowerCase() + ".png";
-
-            //return new File(("./cards/" + toString().replaceAll("\\s", "").toLowerCase() + ".png").isFile())
-            //? "./cards/" + toString().replaceAll("\\s", "").toLowerCase() + ".png"
-            //: "./cards/errcard.PNG";
-
-            String path = "./cards/" + toString().replaceAll("\\s", "").toLowerCase() + ".png";
+            String path = "./cards/" + rank + "of" + suit + ".png";
+            System.err.println(path);
             if (new File(path).isFile())
             {
                 return path;
             } 
-            else
-            {
-                return "./cards/errcard.PNG";
-            }
+            else return "./cards/errcard.png";
         }
     }
 
