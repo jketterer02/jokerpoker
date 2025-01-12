@@ -46,7 +46,7 @@ public class Game
         // Overload toString method
         public String toString()
         { 
-            return rank + " of " + suit ;
+            return rank + " of " + suit;
         }
 
         public int getValue()
@@ -65,7 +65,7 @@ public class Game
         public String getImagePath()
         {
             String path = "./cards/" + rank + "of" + suit + ".png";
-            System.err.println(path);
+            //System.err.println(path);
             if (new File(path).isFile())
             {
                 return path;
