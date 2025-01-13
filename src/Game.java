@@ -241,6 +241,7 @@ public class Game
             }
         }
 
+        //Randomly not always drawing hand
         // Draw hand
         for (Card card : hand)
         {
