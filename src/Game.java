@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class Game
     int cardheight = 150;
     int playerhandsize = 8;
     int handcram = -5;
+    Font m6x11;
 
     ArrayList<Card> deck;
     ArrayList<Card> hand;
@@ -24,8 +26,6 @@ public class Game
     JPanel handPanel = new JPanel();
     JPanel actionpanel = new JPanel();
 
-    ArrayList<JButton> buttonlist;
-    //There's interesting tech here with intializing all these buttons into an arraylist and iterating inside buildActionPanel? 
     JButton discardbtn = new JButton("Discard");
     JButton ranksortbtn = new JButton("Sort (Rank)");
     JButton suitsortbtn = new JButton("Sort (Suit)");
@@ -76,11 +76,12 @@ public class Game
 
     Game()
     {
-        startGame();
+        startGame(); 
     }
 
     public void startGame()
     {
+        buildFont();
         buildGUI();
         buildDeck();
         shuffleDeck();
@@ -156,38 +157,44 @@ public class Game
         // Action Panel settings
         actionpanel.setOpaque(false);
         
+        // WORK ON TEXT WRAPPING FOR SORT BUTTONS
+
+        // Borders for use in CompoundBorders to center text easier
+        Border visibleBorder = BorderFactory.createLineBorder(Color.white, 2);
+        Border biginvisibleBorder = BorderFactory.createEmptyBorder(28, 10, 20, 10);  // Top, Left, Bottom, Right
+        Border smallinvisibleBorder = BorderFactory.createEmptyBorder(15, 10, 10, 10);
+        
         // Button settings
-        //Figure out pixelated sans serif fonts later
         discardbtn.setFocusable(false);
         discardbtn.setBackground(new Color(254,86,95,255));
         discardbtn.setForeground(new Color(255,255,255,255));
-        discardbtn.setFont(new Font("sans serif",Font.PLAIN,14));
-        discardbtn.setBorder(BorderFactory.createLineBorder(Color.white, 2));
-        discardbtn.setPreferredSize(new Dimension(120,63));
+        discardbtn.setPreferredSize(new Dimension(130,63));
+        discardbtn.setFont(m6x11.deriveFont(28f));
+        discardbtn.setBorder(BorderFactory.createCompoundBorder(visibleBorder, biginvisibleBorder));
         
         suitsortbtn.setFocusable(false);
         suitsortbtn.setBackground(new Color(164,89,166,255));
         suitsortbtn.setForeground(new Color(255,255,255,255));
-        suitsortbtn.setFont(new Font("sans serif",Font.PLAIN,14));
-        suitsortbtn.setBorder(BorderFactory.createLineBorder(Color.white, 2));
+        suitsortbtn.setFont(m6x11.deriveFont(16f));
+        suitsortbtn.setBorder(BorderFactory.createCompoundBorder(visibleBorder, smallinvisibleBorder));
         suitsortbtn.setPreferredSize(new Dimension(80,63));
 
         ranksortbtn.setFocusable(false);
         ranksortbtn.setBackground(new Color(239,191,47,255));
         ranksortbtn.setForeground(new Color(255,255,255,255));
-        ranksortbtn.setFont(new Font("sans serif",Font.PLAIN,14));
-        ranksortbtn.setBorder(BorderFactory.createLineBorder(Color.white, 2));
+        ranksortbtn.setFont(m6x11.deriveFont(16f));
+        ranksortbtn.setBorder(BorderFactory.createCompoundBorder(visibleBorder, smallinvisibleBorder));
         ranksortbtn.setPreferredSize(new Dimension(80,63));
         
         playbutton.setFocusable(false);
         playbutton.setBackground(new Color(76,194,146,255));
         playbutton.setForeground(new Color(255,255,255,255));
-        playbutton.setFont(new Font("sans serif",Font.PLAIN,14));
-        playbutton.setBorder(BorderFactory.createLineBorder(Color.white, 2));
-        playbutton.setPreferredSize(new Dimension(120,63));
+        playbutton.setFont(m6x11.deriveFont(28f));
+        playbutton.setBorder(BorderFactory.createCompoundBorder(visibleBorder, biginvisibleBorder));
+        playbutton.setPreferredSize(new Dimension(130,63));
 
 
-
+        // Adding buttons
         actionpanel.add(discardbtn);
         actionpanel.add(suitsortbtn);
         actionpanel.add(ranksortbtn);
@@ -248,4 +255,17 @@ public class Game
 
     }
 
+    public void buildFont()
+    {
+        try
+        {
+            m6x11 = Font.createFont(Font.TRUETYPE_FONT, new File("./font/m6x11.ttf"));
+            //System.out.println("Font found");
+        }
+        catch( IOException|FontFormatException e)
+        {
+            System.err.println("Font could not be found");
+            e.printStackTrace();
+        }
+    }
 }

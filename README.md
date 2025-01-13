@@ -5,4 +5,6 @@ Graphics are heavily inspired by early development videos shared by LocalThunk o
 
 Using code from Java BlackJack game tutorial available here: https://www.youtube.com/watch?v=GMdgjaDdOjI
 
+Font used (m6x11) created by Daniel Linssen https://managore.itch.io/m6x11
+
 Will be updated until I get too busy with school or my code gets too messy to work on or I get bored 
