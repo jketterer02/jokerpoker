@@ -64,13 +64,13 @@ public class Game
 
         public String getImagePath()
         {
-            String path = "./cards/" + rank + "of" + suit + ".png";
+            String path = "src/cards/" + rank + "of" + suit + ".png";
             //System.err.println(path);
             if (new File(path).isFile())
             {
                 return path;
             } 
-            else return "./cards/errcard.png";
+            else return "src/cards/errcard.png";
         }
     }
 
@@ -136,7 +136,7 @@ public class Game
         gamewindow.setLocationRelativeTo(null);
         gamewindow.setResizable(false);
         gamewindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gamewindow.setIconImage(new ImageIcon("icons/windowicon.png").getImage());
+        gamewindow.setIconImage(new ImageIcon("src/icons/windowicon.png").getImage());
         
         // Window background
         gamebg.setLayout(null);
@@ -262,7 +262,7 @@ public class Game
     {
         try
         {
-            m6x11 = Font.createFont(Font.TRUETYPE_FONT, new File("./font/m6x11.ttf"));
+            m6x11 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/m6x11.ttf"));
             //System.out.println("Font found");
         }
         catch( IOException|FontFormatException e)
