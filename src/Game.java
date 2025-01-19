@@ -209,15 +209,15 @@ public class Game
 
     public void buildHandPanel()
     {
-        // Unnecessary?
+        Border cardcenteringBorder = BorderFactory.createEmptyBorder(10, 0, 0, 0);  // Top, Left, Bottom, Right
+
         handPanel = new JPanel();
-        handPanel.setOpaque(false);
+        handPanel.setOpaque(true);
         handPanel.setLayout(new FlowLayout(FlowLayout.CENTER,handcram,0));
         handPanel.setBounds(7, 500, 780, cardheight+20);
-        handPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        //Investiage later for making the handpanel look nicer by waking the cards centered vertically
+        handPanel.setBackground(new Color(255,255,255,40));
+        handPanel.setBorder(cardcenteringBorder);
         
-        //handPanel.setBorder(BorderFactory.createRaisedBevelBorder());
         gamebg.add(handPanel);
     }
 
