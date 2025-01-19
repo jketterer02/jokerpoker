@@ -53,10 +53,10 @@ public class Game
         {
             switch (rank) 
             {
-                case "A":  return 11;
-                case "K": return 10;
-                case "Q": return 10;
-                case "J": return 10;
+                case "Ace": return 11;
+                case "King": return 10;
+                case "Queen": return 10;
+                case "Jack": return 10;
 
                 default: return Integer.parseInt(rank);
             }
@@ -171,6 +171,13 @@ public class Game
         discardbtn.setPreferredSize(new Dimension(130,63));
         discardbtn.setFont(m6x11.deriveFont(28f));
         discardbtn.setBorder(BorderFactory.createCompoundBorder(visibleBorder, biginvisibleBorder));
+        discardbtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Code to handle the click event
+                System.out.println("Discard Button pressed");
+            }
+        });
         
         suitsortbtn.setFocusable(false);
         suitsortbtn.setBackground(new Color(164,89,166,255));
@@ -178,6 +185,14 @@ public class Game
         suitsortbtn.setFont(m6x11.deriveFont(16f));
         suitsortbtn.setBorder(BorderFactory.createCompoundBorder(visibleBorder, smallinvisibleBorder));
         suitsortbtn.setPreferredSize(new Dimension(80,63));
+        suitsortbtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Code to handle the click event
+                sortHand(false);
+                System.out.println("Sort By Suit Button pressed");
+            }
+        });
 
         ranksortbtn.setFocusable(false);
         ranksortbtn.setBackground(new Color(239,191,47,255));
@@ -185,6 +200,14 @@ public class Game
         ranksortbtn.setFont(m6x11.deriveFont(16f));
         ranksortbtn.setBorder(BorderFactory.createCompoundBorder(visibleBorder, smallinvisibleBorder));
         ranksortbtn.setPreferredSize(new Dimension(80,63));
+        ranksortbtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Code to handle the click event
+                sortHand(true);
+                System.out.println("Sort By Rank Button pressed");
+            }
+        });
         
         playbutton.setFocusable(false);
         playbutton.setBackground(new Color(76,194,146,255));
@@ -192,6 +215,13 @@ public class Game
         playbutton.setFont(m6x11.deriveFont(28f));
         playbutton.setBorder(BorderFactory.createCompoundBorder(visibleBorder, biginvisibleBorder));
         playbutton.setPreferredSize(new Dimension(130,63));
+        playbutton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Code to handle the click event
+                System.out.println("Play Hand Button pressed");
+            }
+        });
 
 
         // Adding buttons
@@ -246,6 +276,13 @@ public class Game
         {
             ImageIcon cardImage = new ImageIcon(card.getImagePath());
             JLabel cardLabel = new JLabel(cardImage);
+            cardLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // Code to handle the click event
+                    System.out.println(card);
+                }
+            });
             handPanel.add(cardLabel);
         }
         
@@ -270,5 +307,10 @@ public class Game
             System.err.println("Font could not be found");
             e.printStackTrace();
         }
+    }
+
+    public void sortHand(boolean sorttype)
+    {
+        System.out.println("Hand sorted " + (sorttype ? "by rank." : "by suit."));
     }
 }
