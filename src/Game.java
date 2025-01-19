@@ -253,8 +253,8 @@ public class Game
         handPanel.repaint();
 
         // Error checking: Print hand
-        System.out.println("Hand:");
-        for (Card card : hand) {System.out.println(card);}
+        //System.out.println("Hand:");
+        //for (Card card : hand) {System.out.println(card);}
 
     }
 
