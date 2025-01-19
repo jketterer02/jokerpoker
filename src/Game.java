@@ -241,7 +241,6 @@ public class Game
             }
         }
 
-        //Randomly not always drawing hand
         // Draw hand
         for (Card card : hand)
         {
@@ -250,6 +249,9 @@ public class Game
             handPanel.add(cardLabel);
         }
         
+        handPanel.revalidate();
+        handPanel.repaint();
+
         // Error checking: Print hand
         System.out.println("Hand:");
         for (Card card : hand) {System.out.println(card);}
