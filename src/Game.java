@@ -53,10 +53,10 @@ public class Game
         {
             switch (rank) 
             {
-                case "Ace": return 11;
-                case "King": return 10;
-                case "Queen": return 10;
-                case "Jack": return 10;
+                case "Ace": return 14;
+                case "King": return 13;
+                case "Queen": return 12;
+                case "Jack": return 11;
 
                 default: return Integer.parseInt(rank);
             }
@@ -185,12 +185,13 @@ public class Game
         suitsortbtn.setFont(m6x11.deriveFont(16f));
         suitsortbtn.setBorder(BorderFactory.createCompoundBorder(visibleBorder, smallinvisibleBorder));
         suitsortbtn.setPreferredSize(new Dimension(80,63));
-        suitsortbtn.addMouseListener(new MouseAdapter() {
+        suitsortbtn.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                // Code to handle the click event
+            public void mouseClicked(MouseEvent e)
+            {
                 sortHand(false);
-                System.out.println("Sort By Suit Button pressed");
+                //System.out.println("Sort By Suit Button pressed");
             }
         });
 
@@ -200,12 +201,13 @@ public class Game
         ranksortbtn.setFont(m6x11.deriveFont(16f));
         ranksortbtn.setBorder(BorderFactory.createCompoundBorder(visibleBorder, smallinvisibleBorder));
         ranksortbtn.setPreferredSize(new Dimension(80,63));
-        ranksortbtn.addMouseListener(new MouseAdapter() {
+        ranksortbtn.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                // Code to handle the click event
+            public void mouseClicked(MouseEvent e)
+            {
                 sortHand(true);
-                System.out.println("Sort By Rank Button pressed");
+                //System.out.println("Sort By Rank Button pressed");
             }
         });
         
@@ -240,6 +242,13 @@ public class Game
     public void buildHandPanel()
     {
         Border cardcenteringBorder = BorderFactory.createEmptyBorder(10, 0, 0, 0);  // Top, Left, Bottom, Right
+
+        if (handPanel != null)
+        {
+            gamebg.remove(handPanel);
+            gamebg.revalidate();
+            gamebg.repaint();
+        }
 
         handPanel = new JPanel();
         handPanel.setOpaque(true);
@@ -311,6 +320,69 @@ public class Game
 
     public void sortHand(boolean sorttype)
     {
-        System.out.println("Hand sorted " + (sorttype ? "by rank." : "by suit."));
+        // Which suits to display first in the hand
+        String[] suitOrder = {"Spades", "Hearts", "Clubs", "Diamonds"};
+
+        if (sorttype) 
+        {
+            // Sort by rank first, then suit
+            hand.sort((card1, card2) -> {
+            int rank1 = card1.getValue();
+            int rank2 = card2.getValue();
+            if (rank1 != rank2)
+            {
+                return Integer.compare(rank2, rank1); // Highest rank first
+            }
+            
+            // If ranks are the same, sort by suit (Spades > Hearts > Clubs > Diamonds)
+            int suitIndex1 = java.util.Arrays.asList(suitOrder).indexOf(card1.suit);
+            int suitIndex2 = java.util.Arrays.asList(suitOrder).indexOf(card2.suit);
+            return Integer.compare(suitIndex1, suitIndex2);
+            });
+        }
+        else
+        {
+            // Sort by suit first, then rank
+            hand.sort((card1, card2) ->{
+            // Suit sorting: Spades > Hearts > Clubs > Diamonds
+            int suitIndex1 = java.util.Arrays.asList(suitOrder).indexOf(card1.suit);
+            int suitIndex2 = java.util.Arrays.asList(suitOrder).indexOf(card2.suit);
+            if (suitIndex1 != suitIndex2)
+            {
+                return Integer.compare(suitIndex1, suitIndex2);
+            }
+            // If suits are equal sort by rank (highest leftmost)
+            return Integer.compare(card2.getValue(), card1.getValue()); // Highest rank first within suit
+            });
+        }
+
+        // Rebuild the HandPanel
+        buildHandPanel();
+
+        for (Card card : hand)
+        {
+            ImageIcon cardImage = new ImageIcon(card.getImagePath());
+            JLabel cardLabel = new JLabel(cardImage);
+            cardLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println(card);
+                }
+            });
+            handPanel.add(cardLabel);
+        }
+        
+        handPanel.revalidate();
+        handPanel.repaint();
+
+        // Print sorted hand
+        System.out.println("\nNew order of cards in the hand:");
+        for (Card card : hand)
+        {
+            System.out.println(card);
+        }
+    
+
     }
+
 }
