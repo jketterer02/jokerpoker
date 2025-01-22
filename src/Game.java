@@ -19,6 +19,7 @@ public class Game
 
     ArrayList<Card> deck;
     ArrayList<Card> hand;
+    ArrayList<Card> discardpile;
 
     JFrame gamewindow = new JFrame("Joker Poker");
     
@@ -172,9 +173,9 @@ public class Game
         discardbtn.setBorder(BorderFactory.createCompoundBorder(visibleBorder, biginvisibleBorder));
         discardbtn.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                // Code to handle the click event
-                System.out.println("Discard Button pressed");
+            public void mouseClicked(MouseEvent e)
+            {
+                discardcards();
             }
         });
         
@@ -218,7 +219,8 @@ public class Game
         playbutton.setPreferredSize(new Dimension(130,63));
         playbutton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e)
+            {
                 // Code to handle the click event
                 System.out.println("Play Hand Button pressed");
             }
@@ -387,5 +389,9 @@ public class Game
 
     }
 
-    
+    public void discardcards()
+    {
+        System.out.println("Code that discards the hand here");
+    }
+
 }
