@@ -85,8 +85,7 @@ public class Game
         buildGUI();
         buildDeck();
         shuffleDeck();
-        drawHand();
-
+        drawHand(playerhandsize);
     }
 
     public void buildDeck()
@@ -260,12 +259,15 @@ public class Game
         gamebg.add(handPanel);
     }
 
-    public void drawHand()
+    public void drawHand(int numcards)
     {
-        hand = new ArrayList<Card>();
+        if (hand==null)
+        {
+            hand = new ArrayList<Card>();
+        }
 
-        // Draw 8 cards
-        for (int i=0; i<playerhandsize; i++)
+        // Draw hand
+        for (int i=0; i<numcards; i++)
         {
             // Check for empty deck
             if (!deck.isEmpty())
@@ -376,13 +378,14 @@ public class Game
         handPanel.repaint();
 
         // Print sorted hand
-        System.out.println("\nNew order of cards in the hand:");
-        for (Card card : hand)
-        {
-            System.out.println(card);
-        }
+        // System.out.println("\nNew order of cards in the hand:");
+        // for (Card card : hand)
+        // {
+        //     System.out.println(card);
+        // }
     
 
     }
 
+    
 }
