@@ -37,11 +37,13 @@ public class Game
     {
         String suit;
         String rank;
+        boolean is_selected;
 
-        Card(String suit, String rank)
+        Card(String suit, String rank, boolean is_selected)
         {
             this.suit = suit;
             this.rank = rank;
+            this.is_selected = is_selected;
         }
 
         // Overload toString method
@@ -100,7 +102,7 @@ public class Game
         {
             for(int j=0; j<ranks.length; j++)
             {
-                Card card = new Card(suits[i],ranks[j]);
+                Card card = new Card(suits[i],ranks[j],false);
                 deck.add(card);
             }
         }
