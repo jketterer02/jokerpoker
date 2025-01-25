@@ -305,9 +305,6 @@ public class Game
         buildHandPanel();
         renderCardIcons();
         
-        handPanel.revalidate();
-        handPanel.repaint();
-
         // Print sorted hand
         // System.out.println("\nNew order of cards in the hand:");
         // for (Card card : hand)
@@ -325,17 +322,33 @@ public class Game
 
     public void renderCardIcons()
     {
+        handPanel.removeAll(); // Clear all previous cards
         // Render the Card for each in hand
         for (Card card : hand)
         {
             ImageIcon cardImage = new ImageIcon(card.getImagePath());
             JLabel cardLabel = new JLabel(cardImage);
-            cardLabel.addMouseListener(new MouseAdapter() {
+            cardLabel.addMouseListener(new MouseAdapter()
+            {
                 @Override
-                public void mouseClicked(MouseEvent e) {
+                public void mouseClicked(MouseEvent e)
+                {
                     // Code to handle the click event
-                    System.out.println(card);
+                    if(card.is_selected == false)
+                    {
+                        card.is_selected = true;
+                        //System.out.println(card + " " + card.is_selected);
+                        System.out.println(card + " is selected");
+                    }
+                    else 
+                    {
+                        card.is_selected = false;
+                        //System.out.println(card + " " + card.is_selected);
+                        System.out.println(card + " is not selected");
+                    }
                 }
+
+
             });
             handPanel.add(cardLabel);
         }
@@ -343,4 +356,5 @@ public class Game
         handPanel.revalidate();
         handPanel.repaint();
     }
+
 }
