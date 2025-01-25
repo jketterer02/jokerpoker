@@ -39,50 +39,10 @@ public class Game
 
     public void startGame()
     {
-        buildFont();
         buildGUI();
         buildDeck();
         shuffleDeck();
         drawHand(playerhandsize);
-    }
-
-    public void buildDeck()
-    {
-        deck = new ArrayList<Card>();
-
-        String[] suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
-        String[] ranks = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
-
-        for(int i=0; i<suits.length; i++)
-        {
-            for(int j=0; j<ranks.length; j++)
-            {
-                Card card = new Card(suits[i],ranks[j],false);
-                deck.add(card);
-            }
-        }
-
-        // Error Checking: Print Deck
-        //System.out.println("Building Deck:");
-        //System.out.println(deck);
-    }
-
-    public void shuffleDeck()
-    {
-        Random random = new Random();
-        for (int i = (deck.size() - 1); i>0; i--)
-        {
-            int j = random.nextInt(i + 1); // Get a random index from 0 to i
-            // Swap deck[i] with deck[j]
-            Card temp = deck.get(i);
-            deck.set(i, deck.get(j));
-            deck.set(j, temp);
-        }
-
-        //// Error Checking : Print shuffled deck
-        //System.out.println("Shuffling Deck:");
-        //System.out.println(deck);
-
     }
 
     public void buildGUI()
@@ -102,11 +62,26 @@ public class Game
         // Window Creation
         gamewindow.setContentPane(gamebg);
 
+        buildFont();
         buildActionPanel();
         buildHandPanel();
 
         gamewindow.setVisible(true);
 
+    }
+
+    public void buildFont()
+    {
+        try
+        {
+            m6x11 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/m6x11.ttf"));
+            //System.out.println("Font found");
+        }
+        catch( IOException|FontFormatException e)
+        {
+            System.err.println("Font could not be found");
+            e.printStackTrace();
+        }
     }
 
     public void buildActionPanel()
@@ -218,6 +193,45 @@ public class Game
         gamebg.add(handPanel);
     }
 
+    public void buildDeck()
+    {
+        deck = new ArrayList<Card>();
+
+        String[] suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
+        String[] ranks = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
+
+        for(int i=0; i<suits.length; i++)
+        {
+            for(int j=0; j<ranks.length; j++)
+            {
+                Card card = new Card(suits[i],ranks[j],false);
+                deck.add(card);
+            }
+        }
+
+        // Error Checking: Print Deck
+        //System.out.println("Building Deck:");
+        //System.out.println(deck);
+    }
+
+    public void shuffleDeck()
+    {
+        Random random = new Random();
+        for (int i = (deck.size() - 1); i>0; i--)
+        {
+            int j = random.nextInt(i + 1); // Get a random index from 0 to i
+            // Swap deck[i] with deck[j]
+            Card temp = deck.get(i);
+            deck.set(i, deck.get(j));
+            deck.set(j, temp);
+        }
+
+        //// Error Checking : Print shuffled deck
+        //System.out.println("Shuffling Deck:");
+        //System.out.println(deck);
+
+    }
+
     public void drawHand(int numcards)
     {
         if (hand==null)
@@ -247,20 +261,6 @@ public class Game
         //System.out.println("Hand:");
         //for (Card card : hand) {System.out.println(card);}
 
-    }
-
-    public void buildFont()
-    {
-        try
-        {
-            m6x11 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/m6x11.ttf"));
-            //System.out.println("Font found");
-        }
-        catch( IOException|FontFormatException e)
-        {
-            System.err.println("Font could not be found");
-            e.printStackTrace();
-        }
     }
 
     public void sortHand(boolean sorttype)
