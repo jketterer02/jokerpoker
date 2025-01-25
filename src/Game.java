@@ -31,51 +31,6 @@ public class Game
     JButton ranksortbtn = new JButton("Sort (Rank)");
     JButton suitsortbtn = new JButton("Sort (Suit)");
     JButton playbutton = new JButton("Play Hand");
-    
-    
-    private class Card
-    {
-        String suit;
-        String rank;
-        boolean is_selected;
-
-        Card(String suit, String rank, boolean is_selected)
-        {
-            this.suit = suit;
-            this.rank = rank;
-            this.is_selected = is_selected;
-        }
-
-        // Overload toString method
-        public String toString()
-        { 
-            return rank + " of " + suit;
-        }
-
-        public int getValue()
-        {
-            switch (rank) 
-            {
-                case "Ace": return 14;
-                case "King": return 13;
-                case "Queen": return 12;
-                case "Jack": return 11;
-
-                default: return Integer.parseInt(rank);
-            }
-        }
-
-        public String getImagePath()
-        {
-            String path = "src/cards/" + rank + "of" + suit + ".png";
-            //System.err.println(path);
-            if (new File(path).isFile())
-            {
-                return path;
-            } 
-            else return "src/cards/errcard.png";
-        }
-    }
 
     Game()
     {
@@ -286,23 +241,7 @@ public class Game
             }
         }
 
-        // Draw hand
-        for (Card card : hand)
-        {
-            ImageIcon cardImage = new ImageIcon(card.getImagePath());
-            JLabel cardLabel = new JLabel(cardImage);
-            cardLabel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    // Code to handle the click event
-                    System.out.println(card);
-                }
-            });
-            handPanel.add(cardLabel);
-        }
-        
-        handPanel.revalidate();
-        handPanel.repaint();
+        renderCardIcons();
 
         // Error checking: Print hand
         //System.out.println("Hand:");
@@ -364,19 +303,7 @@ public class Game
 
         // Rebuild the HandPanel
         buildHandPanel();
-
-        for (Card card : hand)
-        {
-            ImageIcon cardImage = new ImageIcon(card.getImagePath());
-            JLabel cardLabel = new JLabel(cardImage);
-            cardLabel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    System.out.println(card);
-                }
-            });
-            handPanel.add(cardLabel);
-        }
+        renderCardIcons();
         
         handPanel.revalidate();
         handPanel.repaint();
@@ -396,4 +323,24 @@ public class Game
         System.out.println("Code that discards the hand here");
     }
 
+    public void renderCardIcons()
+    {
+        // Render the Card for each in hand
+        for (Card card : hand)
+        {
+            ImageIcon cardImage = new ImageIcon(card.getImagePath());
+            JLabel cardLabel = new JLabel(cardImage);
+            cardLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // Code to handle the click event
+                    System.out.println(card);
+                }
+            });
+            handPanel.add(cardLabel);
+        }
+        
+        handPanel.revalidate();
+        handPanel.repaint();
+    }
 }
