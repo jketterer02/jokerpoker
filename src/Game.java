@@ -64,7 +64,6 @@ public class Game
 
         buildFont();
         buildActionPanel();
-        buildHandPanel();
 
         gamewindow.setVisible(true);
 
@@ -75,7 +74,6 @@ public class Game
         try
         {
             m6x11 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/m6x11.ttf"));
-            //System.out.println("Font found");
         }
         catch( IOException|FontFormatException e)
         {
@@ -172,27 +170,6 @@ public class Game
 
     }
 
-    public void buildHandPanel()
-    {
-        Border cardcenteringBorder = BorderFactory.createEmptyBorder(10, 0, 0, 0);  // Top, Left, Bottom, Right
-
-        if (handPanel != null)
-        {
-            gamebg.remove(handPanel);
-            gamebg.revalidate();
-            gamebg.repaint();
-        }
-
-        handPanel = new JPanel();
-        handPanel.setOpaque(true);
-        handPanel.setLayout(new FlowLayout(FlowLayout.CENTER,handcram,0));
-        handPanel.setBounds(7, 500, 780, cardheight+20);
-        handPanel.setBackground(new Color(255,255,255,40));
-        handPanel.setBorder(cardcenteringBorder);
-        
-        gamebg.add(handPanel);
-    }
-
     public void buildDeck()
     {
         deck = new ArrayList<Card>();
@@ -209,9 +186,6 @@ public class Game
             }
         }
 
-        // Error Checking: Print Deck
-        //System.out.println("Building Deck:");
-        //System.out.println(deck);
     }
 
     public void shuffleDeck()
@@ -301,10 +275,8 @@ public class Game
             });
         }
 
-        // Rebuild the HandPanel
-        buildHandPanel();
         renderCardIcons();
-        
+
         // Print sorted hand
         // System.out.println("\nNew order of cards in the hand:");
         // for (Card card : hand)
@@ -322,8 +294,29 @@ public class Game
 
     public void renderCardIcons()
     {
-        handPanel.removeAll(); // Clear all previous cards
-        // Render the Card for each in hand
+        // Remove and Redraw the handPanel if it already exists
+        // Not doing this every time the cards gets rerendered gives weird behavior (like the sort buttons being put in the handPanel for some reason ???)
+        if  (handPanel!= null||java.util.Arrays.asList(gamebg.getComponents()).contains(handPanel))
+        {
+            handPanel.removeAll();
+            handPanel.revalidate();
+            handPanel.repaint();
+            gamebg.remove(handPanel);
+            gamebg.revalidate();
+            gamebg.repaint();
+            //System.out.println("Handpanel Exists");
+        }
+        
+        handPanel.setLayout(new FlowLayout(FlowLayout.CENTER, handcram, 0));
+        handPanel.setBounds(7, 500, 780, cardheight+20);
+        handPanel.setBackground(new Color(255,255,255,40));
+        handPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        handPanel.setOpaque(true);
+        gamebg.add(handPanel);
+
+
+
+        // Add cards to hand and add the cardIcons to handPanel
         for (Card card : hand)
         {
             ImageIcon cardImage = new ImageIcon(card.getImagePath());
@@ -351,10 +344,9 @@ public class Game
 
             });
             handPanel.add(cardLabel);
+            handPanel.revalidate();
+            handPanel.repaint();
         }
-        
-        handPanel.revalidate();
-        handPanel.repaint();
     }
 
 }
