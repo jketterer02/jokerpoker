@@ -14,7 +14,7 @@ public class Game
     int cardwidth = 100;
     int cardheight = 150;
     int playerhandsize = 8;
-    int handcram = -5;
+    int handcram = -5; // Negative values for overlap
     Font m6x11;
 
     ArrayList<Card> deck;
@@ -294,29 +294,31 @@ public class Game
 
     public void renderCardIcons()
     {
-        // Remove and Redraw the handPanel if it already exists
+        // Remove the handPanel if it already exists
         // Not doing this every time the cards gets rerendered gives weird behavior (like the sort buttons being put in the handPanel for some reason ???)
         if  (handPanel!= null||java.util.Arrays.asList(gamebg.getComponents()).contains(handPanel))
         {
             handPanel.removeAll();
-            handPanel.revalidate();
-            handPanel.repaint();
             gamebg.remove(handPanel);
-            gamebg.revalidate();
-            gamebg.repaint();
-            //System.out.println("Handpanel Exists");
         }
         
-        handPanel.setLayout(new FlowLayout(FlowLayout.CENTER, handcram, 0));
+        handPanel.setLayout(new GridBagLayout());
         handPanel.setBounds(7, 500, 780, cardheight+20);
         handPanel.setBackground(new Color(255,255,255,40));
-        handPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         handPanel.setOpaque(true);
         gamebg.add(handPanel);
 
+        // Row of cards using FlowLayout for horizontal alignment
+        JPanel cardRow = new JPanel(new FlowLayout(FlowLayout.CENTER, handcram, 0)) {{ setOpaque(false); }};
+        // cardRow Contraints
+        GridBagConstraints gbc = new GridBagConstraints()
+        {{
+            anchor = GridBagConstraints.CENTER;
+            fill = GridBagConstraints.HORIZONTAL; // Allow horizontal flow
+            weightx = 1.0; // Allow expanding horizontally
+        }};
 
-
-        // Add cards to hand and add the cardIcons to handPanel
+        // Add the cardIcons to cardRow for nicer UI behavior
         for (Card card : hand)
         {
             ImageIcon cardImage = new ImageIcon(card.getImagePath());
@@ -327,26 +329,37 @@ public class Game
                 public void mouseClicked(MouseEvent e)
                 {
                     // Code to handle the click event
-                    if(card.is_selected == false)
-                    {
-                        card.is_selected = true;
-                        //System.out.println(card + " " + card.is_selected);
-                        System.out.println(card + " is selected");
-                    }
-                    else 
-                    {
-                        card.is_selected = false;
-                        //System.out.println(card + " " + card.is_selected);
-                        System.out.println(card + " is not selected");
-                    }
+                    card.is_selected = !card.is_selected;
+                    System.out.println(card + (card.is_selected ? " is selected" : " is not selected"));
                 }
 
+                @Override
+                public void mouseEntered(MouseEvent e)
+                {
+                    // Scale the card by a factor of 1.03
+                    cardLabel.setIcon(new ImageIcon(cardImage.getImage().getScaledInstance((int) (cardwidth * 1.03), (int) (cardheight * 1.03), Image.SCALE_REPLICATE)));
+                    gamebg.revalidate();
+                    gamebg.repaint();
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e)
+                {
+                    // Remove Scaling
+                    cardLabel.setIcon(cardImage);
+                    gamebg.revalidate();
+                    gamebg.repaint();
+                }
 
             });
-            handPanel.add(cardLabel);
-            handPanel.revalidate();
-            handPanel.repaint();
+            cardRow.add(cardLabel);
         }
+        
+        handPanel.add(cardRow, gbc);
+        gamebg.add(handPanel);
+        gamebg.revalidate();
+        gamebg.repaint();
+        
     }
 
 }
