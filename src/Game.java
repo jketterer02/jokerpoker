@@ -20,12 +20,16 @@ public class Game
     ArrayList<Card> deck;
     ArrayList<Card> hand;
     ArrayList<Card> discardpile;
+    ArrayList<Card> drawpile;
 
     JFrame gamewindow = new JFrame("Joker Poker");
     
     JPanel gamebg = new JPanel();
     JPanel handPanel = new JPanel();
-    JPanel actionpanel = new JPanel();
+    JPanel actionPanel = new JPanel();
+    JPanel drawpilePanel = new JPanel();
+    JPanel discardpilePanel = new JPanel();
+
 
     JButton discardbtn = new JButton("Discard");
     JButton ranksortbtn = new JButton("Sort (Rank)");
@@ -85,7 +89,7 @@ public class Game
     public void buildActionPanel()
     {
         // Action Panel settings
-        actionpanel.setOpaque(false);
+        actionPanel.setOpaque(false);
         
         // WORK ON TEXT WRAPPING FOR SORT BUTTONS
 
@@ -158,15 +162,15 @@ public class Game
 
 
         // Adding buttons
-        actionpanel.add(discardbtn);
-        actionpanel.add(suitsortbtn);
-        actionpanel.add(ranksortbtn);
-        actionpanel.add(playbutton);
-        actionpanel.setBounds(150, 685, 500, 75);
+        actionPanel.add(discardbtn);
+        actionPanel.add(suitsortbtn);
+        actionPanel.add(ranksortbtn);
+        actionPanel.add(playbutton);
+        actionPanel.setBounds(150, 685, 500, 75);
 
         // Testing code for outline
         //actionpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        gamebg.add(actionpanel);
+        gamebg.add(actionPanel);
 
     }
 
