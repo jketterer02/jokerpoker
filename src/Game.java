@@ -25,12 +25,11 @@ public class Game
     JFrame gamewindow = new JFrame("Joker Poker");
     
     JPanel gamebg = new JPanel();
-    JPanel handPanel = new JPanel();
+    RoundedPanel handPanel;
+    RoundedPanel deckPanel;
+    RoundedPanel discardpilePanel;
     JPanel actionPanel = new JPanel();
-    JPanel deckPanel = new JPanel();
-    JPanel discardpilePanel = new JPanel();
-
-
+    
     JButton discardbtn = new JButton("Discard");
     JButton ranksortbtn = new JButton("Sort (Rank)");
     JButton suitsortbtn = new JButton("Sort (Suit)");
@@ -166,8 +165,6 @@ public class Game
         actionPanel.add(playbutton);
         actionPanel.setBounds(150, 685, 500, 75);
 
-        // Testing code for outline
-        //actionpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         gamebg.add(actionPanel);
 
     }
@@ -182,11 +179,11 @@ public class Game
         }
         
         // Set up drawpanel 
-        deckPanel = new JPanel();
+        deckPanel = new RoundedPanel(20, 20);
         deckPanel.setLayout(null);
         deckPanel.setBounds(58, 679, 66, 85);
         deckPanel.setBackground(new Color(255, 255, 255, 40));
-        deckPanel.setOpaque(true);
+        deckPanel.setOpaque(false);
 
         // Intermediate calculations to determine centering of deck position
         // Card offset is not dynamic so will not currently work with extremely large decks, still kindof janky
@@ -195,7 +192,7 @@ public class Game
         double offsetX = 0;
 
         // Render cardbacks
-        for (Card card : deck)
+        for (int i = 0; i < deck.size(); i++)
         {
             JLabel cardLabel = new JLabel(new ImageIcon(new ImageIcon("src/cards/cardback.png").getImage().getScaledInstance(50, 75, Image.SCALE_SMOOTH)));
             cardLabel.setBounds(startX + (int) offsetX, 5, 50, 75);
@@ -269,9 +266,10 @@ public class Game
             }
         }
 
-        renderCardIcons();
-        try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
+        try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
         renderdeckPanel();
+        try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+        renderCardIcons();
 
         // Error checking: Print hand
         //System.out.println("Hand:");
@@ -344,10 +342,11 @@ public class Game
             gamebg.remove(handPanel);
         }
         
+        handPanel = new RoundedPanel(20, 20); 
         handPanel.setLayout(new GridBagLayout());
         handPanel.setBounds(7, 500, 780, cardheight+20);
         handPanel.setBackground(new Color(255,255,255,40));
-        handPanel.setOpaque(true);
+        handPanel.setOpaque(false);
 
         // Row of cards using FlowLayout for horizontal alignment
         JPanel cardRow = new JPanel(new FlowLayout(FlowLayout.CENTER, handcram, 0)) {{ setOpaque(false); }};
