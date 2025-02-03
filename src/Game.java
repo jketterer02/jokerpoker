@@ -27,7 +27,7 @@ public class Game
     JPanel gamebg = new JPanel();
     JPanel handPanel = new JPanel();
     JPanel actionPanel = new JPanel();
-    JPanel drawpilePanel = new JPanel();
+    JPanel deckPanel = new JPanel();
     JPanel discardpilePanel = new JPanel();
 
 
@@ -43,9 +43,9 @@ public class Game
 
     public void startGame()
     {
-        buildGUI();
         buildDeck();
         shuffleDeck();
+        buildGUI();
         drawHand(playerhandsize);
     }
 
@@ -66,15 +66,7 @@ public class Game
         // Window Creation
         gamewindow.setContentPane(gamebg);
 
-        buildFont();
-        buildActionPanel();
-
-        gamewindow.setVisible(true);
-
-    }
-
-    public void buildFont()
-    {
+        // Custom Font
         try
         {
             m6x11 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/m6x11.ttf"));
@@ -84,6 +76,12 @@ public class Game
             System.err.println("Font could not be found");
             e.printStackTrace();
         }
+
+        buildActionPanel();
+        renderdeckPanel();
+
+        gamewindow.setVisible(true);
+
     }
 
     public void buildActionPanel()
@@ -174,6 +172,44 @@ public class Game
 
     }
 
+    public void renderdeckPanel()
+    {
+        // Remove deckPanel if it already exists
+        if  (deckPanel!= null||java.util.Arrays.asList(gamebg.getComponents()).contains(deckPanel))
+        {
+            deckPanel.removeAll();
+            gamebg.remove(deckPanel);
+        }
+        
+        // Set up drawpanel 
+        deckPanel = new JPanel();
+        deckPanel.setLayout(null);
+        deckPanel.setBounds(58, 679, 66, 85);
+        deckPanel.setBackground(new Color(255, 255, 255, 40));
+        deckPanel.setOpaque(true);
+
+        // Intermediate calculations to determine centering of deck position
+        // Card offset is not dynamic so will not currently work with extremely large decks, still kindof janky
+        double totalDeckWidth = 50 + (deck.size() - 1)*.1;
+        int startX = (66 - (int) totalDeckWidth) / 2;
+        double offsetX = 0;
+
+        // Render cardbacks
+        for (Card card : deck)
+        {
+            JLabel cardLabel = new JLabel(new ImageIcon(new ImageIcon("src/cards/cardback.png").getImage().getScaledInstance(50, 75, Image.SCALE_SMOOTH)));
+            cardLabel.setBounds(startX + (int) offsetX, 5, 50, 75);
+            deckPanel.add(cardLabel);
+            offsetX += .1; // (card offset)
+        }
+        
+        //System.out.println("Rendering Deck with " + deck.size() + " cards");
+
+        gamebg.add(deckPanel);
+        gamebg.revalidate();
+        gamebg.repaint();
+    }
+
     public void buildDeck()
     {
         deck = new ArrayList<Card>();
@@ -234,6 +270,8 @@ public class Game
         }
 
         renderCardIcons();
+        try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
+        renderdeckPanel();
 
         // Error checking: Print hand
         //System.out.println("Hand:");
@@ -310,7 +348,6 @@ public class Game
         handPanel.setBounds(7, 500, 780, cardheight+20);
         handPanel.setBackground(new Color(255,255,255,40));
         handPanel.setOpaque(true);
-        gamebg.add(handPanel);
 
         // Row of cards using FlowLayout for horizontal alignment
         JPanel cardRow = new JPanel(new FlowLayout(FlowLayout.CENTER, handcram, 0)) {{ setOpaque(false); }};
