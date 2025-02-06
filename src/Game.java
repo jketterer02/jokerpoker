@@ -30,10 +30,10 @@ public class Game
     RoundedPanel discardpilePanel;
     JPanel actionPanel = new JPanel();
     
-    JButton discardbtn = new JButton("Discard");
-    JButton ranksortbtn = new JButton("Sort (Rank)");
-    JButton suitsortbtn = new JButton("Sort (Suit)");
-    JButton playbutton = new JButton("Play Hand");
+    RoundedButton discardbtn = new RoundedButton("Discard", 20, 20);
+    RoundedButton ranksortbtn = new RoundedButton("Sort (Rank)", 20, 20);
+    RoundedButton suitsortbtn = new RoundedButton("Sort (Suit)", 20, 20);
+    RoundedButton playbutton = new RoundedButton("Play Hand", 20, 20);
 
     Game()
     {
