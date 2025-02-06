@@ -27,10 +27,6 @@ public class RoundedButton extends JButton
         {
             g2d.setColor(getBackground().darker());
         }
-        else if (getModel().isRollover())
-        {
-            g2d.setColor(getBackground().brighter());
-        }
         else
         {
             g2d.setColor(getBackground());
