@@ -1,7 +1,7 @@
 # Joker Poker
 A recreation of the popular 2024 poker roguelike Balatro 
 
-Heavily inspired by early development videos shared by LocalThunk- https://x.com/LocalThunk/status/1795698573662982480
+Inspired by Balatro development videos- https://x.com/LocalThunk/status/1795698573662982480
 
 Using code from Java BlackJack game tutorial available here: https://www.youtube.com/watch?v=GMdgjaDdOjI
 
