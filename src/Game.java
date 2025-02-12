@@ -344,7 +344,7 @@ public class Game
         
         handPanel = new RoundedPanel(20, 20); 
         handPanel.setLayout(new GridBagLayout());
-        handPanel.setBounds(7, 500, 780, cardheight+20);
+        handPanel.setBounds(3, 500, 778, cardheight+20);
         handPanel.setBackground(new Color(255,255,255,40));
         handPanel.setOpaque(false);
 
